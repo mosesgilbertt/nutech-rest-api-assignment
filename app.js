@@ -10,5 +10,6 @@ app.use(express.json());
 
 // app.use(router);
 // app.use(errorHandler);
+console.log(process.env);
 
 module.exports = app;

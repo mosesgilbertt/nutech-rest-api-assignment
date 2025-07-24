@@ -1,3 +1,5 @@
+const pool = require("./connection");
+
 async function migrating() {
   try {
     const dropTable = `DROP TABLE IF EXISTS "Users", "Banners", "Services", "Topups", "Transactions";`;
@@ -9,7 +11,7 @@ async function migrating() {
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    profile_picture VARCHAR(255),
+    profile_picture VARCHAR(255)
     );
     `;
 
@@ -18,7 +20,7 @@ async function migrating() {
     id SERIAL PRIMARY KEY,
     banner_name VARCHAR(255) NOT NULL,
     banner_image VARCHAR(255) NOT NULL,
-    description TEXT,
+    description TEXT
     );
     `;
 
@@ -28,7 +30,7 @@ async function migrating() {
     service_code VARCHAR(255) NOT NULL,
     service_name VARCHAR(255) NOT NULL,
     service_icon VARCHAR(255) NOT NULL,
-    service_tarif INTEGER NOT NULL,
+    service_tariff INTEGER NOT NULL
     );
     `;
 

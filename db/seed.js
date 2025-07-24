@@ -1,4 +1,5 @@
 const fs = require("fs");
+const pool = require("./connection");
 
 async function seeding() {
   try {
@@ -22,14 +23,14 @@ async function seeding() {
     );
 
     const servicesMapped = services.map((service) => {
-      return `('${service.service_code}', '${service.service_name}', '${service.service_icon}', ${service.service_tarif})`;
+      return `('${service.service_code}', '${service.service_name}', '${service.service_icon}', ${service.service_tariff})`;
     });
 
     const servicesMappedJoin = servicesMapped.join(",\n");
 
     const servicesSeed = `
     INSERT INTO 
-      "Services" (service_code, service_name, service_icon, service_tarif)
+      "Services" (service_code, service_name, service_icon, service_tariff)
     VALUES
       ${servicesMappedJoin}
     `;
