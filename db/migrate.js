@@ -11,7 +11,8 @@ async function migrating() {
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    profile_picture VARCHAR(255)
+    profile_picture VARCHAR(255),
+    balance INTEGER DEFAULT 0
     );
     `;
 
