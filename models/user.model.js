@@ -32,12 +32,12 @@ class UserModel {
     if (error) {
       const validationError = {
         name: "ValidationError",
-        msg: error.details.map((detail) => detail.message),
+        message: error.details.map((detail) => detail.message),
       };
       throw validationError;
     }
 
-    const hashedPassword = await hashPassword(userData.password);
+    const hashedPassword = hashPassword(userData.password);
 
     const query = `
     INSERT INTO

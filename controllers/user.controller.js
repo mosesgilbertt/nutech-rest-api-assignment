@@ -104,11 +104,10 @@ class UserController {
       if (!req.file || !req.file.path) {
         throw {
           name: "BadRequest",
-          msg: "Format Image tidak sesuai",
+          message: "Format Image tidak sesuai",
         };
       }
 
-      // Update di database lewat model
       const updatedUser = await UserModel.updateProfileImage(
         userId,
         req.file.path
