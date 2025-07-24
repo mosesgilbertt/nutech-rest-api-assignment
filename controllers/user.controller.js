@@ -96,6 +96,32 @@ class UserController {
       next(error);
     }
   }
+
+  static async updateProfileImage(req, res, next) {
+    try {
+      const userId = req.user.id;
+
+      if (!req.file || !req.file.path) {
+        throw {
+          name: "BadRequest",
+          message: "Format Image tidak sesuai",
+        };
+      }
+
+      const updatedUser = await UserModel.updateProfileImage(
+        userId,
+        req.file.path
+      );
+
+      res.status(200).json({
+        status: 0,
+        message: "Update Profile Image berhasil",
+        data: updatedUser,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = UserController;

@@ -6,16 +6,18 @@ async function authentication(req, res, next) {
   try {
     if (!authorization) {
       throw {
+        status: 108,
         name: "Unauthorized",
-        message: "Token tidak tidak valid atau kadaluwarsa",
+        message: "Token tidak valid atau kadaluwarsa",
       };
     }
 
     const rawToken = authorization.split(" ");
     if (rawToken[0] !== "Bearer" || !rawToken[1]) {
       throw {
+        status: 108,
         name: "Unauthorized",
-        message: "Token tidak tidak valid atau kadaluwarsa",
+        message: "Token tidak valid atau kadaluwarsa",
       };
     }
 
@@ -25,6 +27,7 @@ async function authentication(req, res, next) {
 
     if (!user) {
       throw {
+        status: 108,
         name: "Unauthorized",
         message: "Token tidak tidak valid atau kadaluwarsa",
       };

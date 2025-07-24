@@ -32,12 +32,12 @@ class UserModel {
     if (error) {
       const validationError = {
         name: "ValidationError",
-        msg: error.details.map((detail) => detail.message),
+        message: error.details.map((detail) => detail.message),
       };
       throw validationError;
     }
 
-    const hashedPassword = await hashPassword(userData.password);
+    const hashedPassword = hashPassword(userData.password);
 
     const query = `
     INSERT INTO
@@ -146,6 +146,31 @@ class UserModel {
     const values = [updateData.first_name, updateData.last_name, userId];
 
     const result = await db.query(query, values);
+    return result.rows[0];
+  }
+
+  static async updateProfileImage(userId, imageUrl) {
+    if (!imageUrl.match(/\.(jpg|jpeg|png)$/i)) {
+      throw {
+        name: "BadRequest",
+        message: "Format Image tidak sesuai",
+      };
+    }
+
+    const query = `
+    UPDATE
+      "Users"
+    SET
+      profile_picture = $1
+    WHERE
+      id = $2
+    RETURNING 
+      email, first_name, last_name, profile_picture
+  `;
+
+    const values = [imageUrl, userId];
+    const result = await db.query(query, values);
+
     return result.rows[0];
   }
 }
