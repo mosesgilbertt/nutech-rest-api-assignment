@@ -7,5 +7,6 @@ user.post("/registration", UserController.registration);
 user.post("/login", UserController.login);
 
 user.get("/profile", authentication, UserController.profile);
+user.patch("/profile/update", authentication, UserController.updateProfile);
 
 module.exports = user;

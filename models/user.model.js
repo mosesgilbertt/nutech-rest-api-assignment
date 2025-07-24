@@ -110,6 +110,44 @@ class UserModel {
     const result = await db.query(query, values);
     return result.rows[0];
   }
+
+  static async updateProfile(userId, updateData) {
+    const schema = Joi.object({
+      first_name: Joi.string().min(1).required().messages({
+        "any.required": "First name tidak boleh kosong",
+        "string.empty": "First name tidak boleh kosong",
+      }),
+      last_name: Joi.string().min(1).required().messages({
+        "any.required": "Last name tidak boleh kosong",
+        "string.empty": "Last name tidak boleh kosong",
+      }),
+    });
+
+    const { error } = schema.validate(updateData, { abortEarly: false });
+
+    if (error) {
+      const validationError = {
+        name: "ValidationError",
+        msg: error.details.map((detail) => detail.message),
+      };
+      throw validationError;
+    }
+
+    const query = `
+    UPDATE
+      "Users"
+    SET
+      first_name = $1, last_name = $2
+    WHERE
+      id = $3
+    RETURNING
+      email, first_name, last_name, profile_picture
+    `;
+    const values = [updateData.first_name, updateData.last_name, userId];
+
+    const result = await db.query(query, values);
+    return result.rows[0];
+  }
 }
 
 module.exports = UserModel;
