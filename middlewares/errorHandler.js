@@ -1,10 +1,10 @@
-function errororHandler(error, req, res, next) {
+function errorHandler(error, req, res, next) {
   console.log(error);
 
   if (error.name === "ValidationError") {
     return res.status(400).json({
       status: 102,
-      message: error.msg,
+      message: Array.isArray(error.msg) ? error.msg.join(", ") : error.msg,
       data: null,
     });
   }
@@ -17,7 +17,7 @@ function errororHandler(error, req, res, next) {
     });
   }
 
-  if (error.code) {
+  if (error.code && error.name === "DatabaseError") {
     return res.status(400).json({
       status: 108,
       message: "Database error",
@@ -28,4 +28,4 @@ function errororHandler(error, req, res, next) {
   res.status(500).json({ message: "Internal Server Error." });
 }
 
-module.exports = errororHandler;
+module.exports = errorHandler;

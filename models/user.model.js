@@ -1,29 +1,42 @@
 const db = require("../db/connection");
 const { hashPassword } = require("../helpers/bcrypt");
+const Joi = require("joi");
 
 class UserModel {
   static async createUser(userData) {
-    const errors = {
-      name: "ValidationError",
-      msg: [],
-    };
+    // Schema validasi dengan Joi
+    const schema = Joi.object({
+      email: Joi.string().email().required().messages({
+        "string.email": "Parameter email tidak sesuai format",
+        "any.required": "Email harus diisi",
+      }),
 
-    if (!userData.email || !userData.email.includes("@")) {
-      errors.msg.push("Paramter email tidak sesuai format.");
-    }
-    if (!userData.first_name) {
-      errors.msg.push("First name harus diisi.");
-    }
-    if (!userData.last_name) {
-      errors.msg.push("Last name harus diisi.");
-    }
+      first_name: Joi.string().min(1).required().messages({
+        "any.required": "First name harus diisi",
+        "string.empty": "First name harus diisi",
+      }),
 
-    if (!userData.password || String(userData.password).length < 6) {
-      errors.msg.push("Password minimal 6 karakter.");
-    }
+      last_name: Joi.string().min(1).required().messages({
+        "any.required": "Last name harus diisi",
+        "string.empty": "Last name harus diisi",
+      }),
 
-    if (errors.msg.length > 0) {
-      throw errors;
+      password: Joi.string().min(6).required().messages({
+        "string.min": "Password minimal 6 karakter",
+        "any.required": "Password harus diisi",
+      }),
+    });
+
+    // Validasi data
+    const { error } = schema.validate(userData, { abortEarly: false });
+
+    if (error) {
+      // BENAR - throw error, bukan return response
+      const validationError = {
+        name: "ValidationError",
+        msg: error.details.map((detail) => detail.message),
+      };
+      throw validationError;
     }
 
     const hashedPassword = await hashPassword(userData.password);
