@@ -25,6 +25,22 @@ function errorHandler(error, req, res, next) {
     });
   }
 
+  if (error.name === "BadRequest") {
+    return res.status(400).json({
+      status: 102,
+      message: error.message,
+      data: null,
+    });
+  }
+
+  if (error.name === "Unauthorized") {
+    return res.status(401).json({
+      status: 103,
+      message: error.message,
+      data: null,
+    });
+  }
+
   res.status(500).json({ message: "Internal Server Error." });
 }
 
