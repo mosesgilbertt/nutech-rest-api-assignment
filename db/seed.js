@@ -1,5 +1,5 @@
 const fs = require("fs");
-const pool = require("./connection");
+const db = require("./connection");
 
 async function seeding() {
   try {
@@ -35,8 +35,8 @@ async function seeding() {
       ${servicesMappedJoin}
     `;
 
-    await pool.query(bannersSeed);
-    await pool.query(servicesSeed);
+    await db.query(bannersSeed);
+    await db.query(servicesSeed);
 
     console.log("Data seeded successfully");
   } catch (error) {
