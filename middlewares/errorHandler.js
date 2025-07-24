@@ -19,7 +19,7 @@ function errorHandler(error, req, res, next) {
 
   if (error.code && error.name === "DatabaseError") {
     return res.status(400).json({
-      status: 108,
+      status,
       message: "Database error",
       data: null,
     });
@@ -46,8 +46,19 @@ function errorHandler(error, req, res, next) {
     error.name === "TokenExpiredError"
   ) {
     return res.status(401).json({
-      status: 104,
+      status: 108,
       message: "Token tidak valid atau kadaluwarsa",
+      data: null,
+    });
+  }
+
+  if (
+    error.name === "MulterError" ||
+    error.message?.includes("format not allowed")
+  ) {
+    return res.status(400).json({
+      status: 102,
+      message: "Format Image tidak sesuai",
       data: null,
     });
   }
