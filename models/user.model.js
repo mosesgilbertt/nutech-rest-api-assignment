@@ -41,9 +41,9 @@ class UserModel {
 
     const query = `
     INSERT INTO
-      "Users" (email, first_name, last_name, password)
+      "Users" (email, first_name, last_name, password, profile_picture)
     VALUES
-      ($1, $2, $3, $4)
+      ($1, $2, $3, $4, $5)
     RETURNING
       id, email, first_name, last_name
     `;
@@ -52,6 +52,7 @@ class UserModel {
       userData.first_name,
       userData.last_name,
       hashedPassword,
+      "https://i.pinimg.com/736x/84/64/82/8464826d795c3a32fff669b37aba806d.jpg",
     ];
 
     const result = await db.query(query, values);
@@ -93,6 +94,21 @@ class UserModel {
     });
 
     return token;
+  }
+
+  static async findById(id) {
+    const query = `
+    SELECT
+      id, email, first_name, last_name, profile_picture
+    FROM
+      "Users"
+    WHERE
+      id = $1
+    `;
+    const values = [id];
+
+    const result = await db.query(query, values);
+    return result.rows[0];
   }
 }
 

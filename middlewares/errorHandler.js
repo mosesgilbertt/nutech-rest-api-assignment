@@ -41,6 +41,17 @@ function errorHandler(error, req, res, next) {
     });
   }
 
+  if (
+    error.name === "JsonWebTokenError" ||
+    error.name === "TokenExpiredError"
+  ) {
+    return res.status(401).json({
+      status: 104,
+      message: "Token tidak valid atau kadaluwarsa",
+      data: null,
+    });
+  }
+
   res.status(500).json({ message: "Internal Server Error." });
 }
 

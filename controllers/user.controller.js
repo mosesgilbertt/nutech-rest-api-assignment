@@ -48,6 +48,34 @@ class UserController {
       next(error);
     }
   }
+
+  static async profile(req, res, next) {
+    try {
+      const userId = req.user.id;
+
+      const userProfile = await UserModel.findById(userId);
+
+      if (!userProfile) {
+        throw {
+          name: "NotFound",
+          message: "User not found",
+        };
+      }
+
+      res.status(200).json({
+        status: 0,
+        message: "Sukses",
+        data: {
+          email: userProfile.email,
+          first_name: userProfile.first_name,
+          last_name: userProfile.last_name,
+          profile_picture: userProfile.profile_picture,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = UserController;
