@@ -29,7 +29,7 @@ async function authentication(req, res, next) {
       throw {
         status: 108,
         name: "Unauthorized",
-        message: "Token tidak tidak valid atau kadaluwarsa",
+        message: "Token tidak valid atau kadaluwarsa",
       };
     }
 
