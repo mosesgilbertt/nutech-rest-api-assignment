@@ -15,7 +15,7 @@ class BannerModel {
     if (result.rows.length === 0) {
       throw {
         name: "NotFound",
-        message: "No banners found",
+        message: "Tidak ada banner ditemukan",
       };
     }
 
