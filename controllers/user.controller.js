@@ -16,6 +16,38 @@ class UserController {
       next(error);
     }
   }
+
+  static async login(req, res, next) {
+    try {
+      const { email, password } = req.body;
+
+      if (!email) {
+        throw {
+          name: "BadRequest",
+          message: "Parameter email tidak sesuai format",
+        };
+      }
+
+      if (!password) {
+        throw {
+          name: "BadRequest",
+          message: "Parameter password tidak boleh kosong",
+        };
+      }
+
+      const token = await UserModel.login(email, password);
+
+      res.status(200).json({
+        status: 0,
+        message: "Login Sukses",
+        data: {
+          token,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = UserController;
