@@ -63,6 +63,14 @@ function errorHandler(error, req, res, next) {
     });
   }
 
+  if (error.name === "NotFound") {
+    return res.status(404).json({
+      status: 104,
+      message: error.message,
+      data: null,
+    });
+  }
+
   res.status(500).json({ message: "Internal Server Error." });
 }
 
