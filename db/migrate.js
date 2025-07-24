@@ -1,4 +1,4 @@
-const pool = require("./connection");
+const db = require("./connection");
 
 async function migrating() {
   try {
@@ -34,13 +34,13 @@ async function migrating() {
     );
     `;
 
-    await pool.query(dropTable);
+    await db.query(dropTable);
 
-    await pool.query(tableUsers);
+    await db.query(tableUsers);
 
-    await pool.query(tableBanners);
+    await db.query(tableBanners);
 
-    await pool.query(tableServices);
+    await db.query(tableServices);
 
     console.log("Tables created successfully");
   } catch (error) {
