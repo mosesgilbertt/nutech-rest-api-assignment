@@ -76,6 +76,26 @@ class UserController {
       next(error);
     }
   }
+
+  static async updateProfile(req, res, next) {
+    try {
+      const userId = req.user.id;
+      const { first_name, last_name } = req.body;
+
+      const updatedUser = await UserModel.updateProfile(userId, {
+        first_name,
+        last_name,
+      });
+
+      res.status(200).json({
+        status: 0,
+        message: "Profile updated successfully",
+        data: updatedUser,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = UserController;
