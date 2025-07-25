@@ -35,6 +35,16 @@ async function migrating() {
     );
     `;
 
+    const tableTopups = `
+    CREATE TABLE IF NOT EXISTS "Topups" (
+    id SERIAL PRIMARY KEY,
+    top_up_amount INTEGER NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES "Users"(id) ON DELETE CASCADE,
+    transaction_type VARCHAR(50) NOT NULL,
+    created_on TIMESTAMP DEFAULT NOW()
+    );
+    `;
+
     await db.query(dropTable);
 
     await db.query(tableUsers);
@@ -42,6 +52,8 @@ async function migrating() {
     await db.query(tableBanners);
 
     await db.query(tableServices);
+
+    await db.query(tableTopups);
 
     console.log("Tables created successfully");
   } catch (error) {
