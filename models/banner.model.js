@@ -7,8 +7,6 @@ class BannerModel {
       banner_name, banner_image, description
     FROM
       "Banners"
-    ORDER BY
-      banner_name ASC
     `;
 
     const result = await db.query(query);

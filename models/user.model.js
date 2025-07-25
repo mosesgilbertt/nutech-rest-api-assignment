@@ -32,7 +32,7 @@ class UserModel {
     if (error) {
       const validationError = {
         name: "ValidationError",
-        message: error.details.map((detail) => detail.message),
+        msg: error.details.map((detail) => detail.message),
       };
       throw validationError;
     }
@@ -149,7 +149,7 @@ class UserModel {
     return result.rows[0];
   }
 
-  static async updateProfileImage(userId, imageUrl) {
+  static async updateProfileImage({ userId, imageUrl }) {
     if (!imageUrl.match(/\.(jpg|jpeg|png)$/i)) {
       throw {
         name: "BadRequest",
@@ -158,15 +158,15 @@ class UserModel {
     }
 
     const query = `
-    UPDATE
-      "Users"
-    SET
-      profile_picture = $1
-    WHERE
-      id = $2
-    RETURNING 
-      email, first_name, last_name, profile_picture
-  `;
+      UPDATE
+        "Users"
+      SET
+        profile_picture = $1
+      WHERE
+        id = $2
+      RETURNING 
+        email, first_name, last_name, profile_picture
+      `;
 
     const values = [imageUrl, userId];
     const result = await db.query(query, values);

@@ -35,7 +35,7 @@ function errorHandler(error, req, res, next) {
 
   if (error.name === "Unauthorized") {
     return res.status(401).json({
-      status: 103,
+      status: 108,
       message: error.message,
       data: null,
     });
@@ -47,18 +47,37 @@ function errorHandler(error, req, res, next) {
   ) {
     return res.status(401).json({
       status: 108,
-      message: "Token tidak valid atau kadaluwarsa",
+      message: error.message,
       data: null,
     });
   }
 
   if (
-    error.name === "MulterError" ||
-    error.message?.includes("format not allowed")
+    error.name === "Error" &&
+    error.message &&
+    (error.message.includes("file format") ||
+      error.message.includes("not allowed") ||
+      error.message.includes("Image file format"))
   ) {
     return res.status(400).json({
       status: 102,
-      message: "Format Image tidak sesuai",
+      message: "Format Image tidak sesuai", // ✅ Ubah message jadi custom
+      data: null,
+    });
+  }
+
+  if (error.name === "MulterError" || error.code === "LIMIT_FILE_SIZE") {
+    return res.status(400).json({
+      status: 102,
+      message: error.message,
+      data: null,
+    });
+  }
+
+  if (error.message && error.message.includes(error.message)) {
+    return res.status(400).json({
+      status: 102,
+      message: error.message,
       data: null,
     });
   }
@@ -71,7 +90,11 @@ function errorHandler(error, req, res, next) {
     });
   }
 
-  res.status(500).json({ message: "Internal Server Error." });
+  res.status(500).json({
+    status: 500,
+    message: "Internal Server Error",
+    data: null,
+  });
 }
 
 module.exports = errorHandler;
