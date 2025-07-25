@@ -10,7 +10,9 @@ class BalanceController {
       res.status(200).json({
         status: 0,
         message: "Get Balance Berhasil",
-        data: balance,
+        data: {
+          balance: balance,
+        },
       });
     } catch (error) {
       next(error);

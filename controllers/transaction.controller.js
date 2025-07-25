@@ -34,6 +34,31 @@ class TransactionController {
       next(error);
     }
   }
+
+  static async getTransactionHistory(req, res, next) {
+    try {
+      const userId = req.user.id;
+      const { offset = 0, limit = 3 } = req.query;
+
+      const result = await TransactionModel.getTransactionHistory({
+        userId,
+        offset: parseInt(offset),
+        limit: parseInt(limit),
+      });
+
+      res.status(200).json({
+        status: 0,
+        message: "Get History Berhasil",
+        data: {
+          offset: parseInt(offset),
+          limit: parseInt(limit),
+          records: result,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = TransactionController;

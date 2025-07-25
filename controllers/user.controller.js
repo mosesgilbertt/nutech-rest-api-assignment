@@ -100,18 +100,19 @@ class UserController {
   static async updateProfileImage(req, res, next) {
     try {
       const userId = req.user.id;
+      const imageUrl = req.file.path;
 
-      if (!req.file || !req.file.path) {
+      if (!req.file || !imageUrl) {
         throw {
           name: "BadRequest",
           message: "Format Image tidak sesuai",
         };
       }
 
-      const updatedUser = await UserModel.updateProfileImage(
+      const updatedUser = await UserModel.updateProfileImage({
         userId,
-        req.file.path
-      );
+        imageUrl,
+      });
 
       res.status(200).json({
         status: 0,

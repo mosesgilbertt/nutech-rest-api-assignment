@@ -119,6 +119,49 @@ class TransactionModel {
 
     return `INV${date}${month}${year}-${hours}${minutes}${seconds}${milliseconds}`;
   }
+
+  static async getTransactionHistory({ userId, offset = 0, limit = 3 }) {
+    try {
+      const query = `
+        (
+          SELECT 
+            invoice_number,
+            'PAYMENT' as transaction_type,
+            service_name as description,
+            total_amount,
+            created_on
+          FROM 
+            "Transactions" 
+          WHERE 
+            user_id = $1
+        )
+        UNION ALL
+        (
+          SELECT 
+            CONCAT('TOP', id) as invoice_number,
+            transaction_type,
+            'Top Up balance' as description,
+            top_up_amount as total_amount,
+            created_on
+          FROM 
+            "Topups" 
+          WHERE 
+            user_id = $1
+        )
+        ORDER BY 
+          created_on DESC
+        LIMIT 
+          $2 OFFSET $3
+      `;
+
+      const values = [userId, limit, offset];
+      const result = await db.query(query, values);
+
+      return result.rows;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = TransactionModel;
