@@ -45,15 +45,25 @@ async function migrating() {
     );
     `;
 
+    const tableTransactions = `
+    CREATE TABLE IF NOT EXISTS "Transactions" (
+    id SERIAL PRIMARY KEY,
+    invoice_number VARCHAR(255) NOT NULL UNIQUE,
+    service_code VARCHAR(255) NOT NULL,
+    service_name VARCHAR(255) NOT NULL,
+    transaction_type VARCHAR(50) NOT NULL DEFAULT 'PAYMENT',
+    total_amount INTEGER NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES "Users"(id) ON DELETE CASCADE,
+    created_on TIMESTAMP DEFAULT NOW()
+    );
+    `;
+
     await db.query(dropTable);
-
     await db.query(tableUsers);
-
     await db.query(tableBanners);
-
     await db.query(tableServices);
-
     await db.query(tableTopups);
+    await db.query(tableTransactions);
 
     console.log("Tables created successfully");
   } catch (error) {
