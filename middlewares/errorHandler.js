@@ -19,7 +19,7 @@ function errorHandler(error, req, res, next) {
 
   if (error.code && error.name === "DatabaseError") {
     return res.status(400).json({
-      status,
+      status: 101,
       message: "Database error",
       data: null,
     });

@@ -10,5 +10,6 @@ router.use(require("./user.routes"));
 router.use("/banner", require("./banner.routes"));
 router.use("/service", require("./service.routes"));
 router.use("/balance", require("./balance.routes"));
+router.use("/topup", require("./topup.routes"));
 
 module.exports = router;
