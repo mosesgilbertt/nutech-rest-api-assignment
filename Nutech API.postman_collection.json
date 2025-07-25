@@ -1,0 +1,361 @@
+{
+  "info": {
+    "_postman_id": "ac4a25fe-5621-44b8-9a2e-6d4ef5e0b747",
+    "name": "Nutech API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "41991901"
+  },
+  "item": [
+    {
+      "name": "nutech api",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/",
+          "host": ["{{baseURL}}"],
+          "path": [""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "registration",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"user@nutech-integrasi.com\",\r\n    \"first_name\":\"User\",\r\n    \"last_name\":\"Nutech\",\r\n    \"password\":\"abcdef1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/registration",
+          "host": ["{{baseURL}}"],
+          "path": ["registration"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"user@nutech-integrasi.com\",\r\n    \"password\":\"abcdef1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/login",
+          "host": ["{{baseURL}}"],
+          "path": ["login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "profile",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzUzNDQzNTYxfQ.nZYwl-XPDJz1kYnD3z4QmtqUuZHYLLeBCCRlRbYpmrg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"a@mail.com\",\r\n    \"password\":\"1234567\"\r\n}"
+        },
+        "url": {
+          "raw": "{{baseURL}}/profile",
+          "host": ["{{baseURL}}"],
+          "path": ["profile"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update profile",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzUzNDQzNTYxfQ.nZYwl-XPDJz1kYnD3z4QmtqUuZHYLLeBCCRlRbYpmrg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"first_name\":\"User Edited\",\r\n    \"last_name\":\"Nutech Edited\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/profile/update",
+          "host": ["{{baseURL}}"],
+          "path": ["profile", "update"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update image",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzUzNDQzNTYxfQ.nZYwl-XPDJz1kYnD3z4QmtqUuZHYLLeBCCRlRbYpmrg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/C:/Users/moses/Pictures/op2.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseURL}}/profile/image",
+          "host": ["{{baseURL}}"],
+          "path": ["profile", "image"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "banner",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/C:/Users/moses/Pictures/Camera Roll/database_diagram.drawio"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseURL}}/banner",
+          "host": ["{{baseURL}}"],
+          "path": ["banner"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "service",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzUzNDQzNTYxfQ.nZYwl-XPDJz1kYnD3z4QmtqUuZHYLLeBCCRlRbYpmrg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/C:/Users/moses/Pictures/Camera Roll/database_diagram.drawio"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseURL}}/service",
+          "host": ["{{baseURL}}"],
+          "path": ["service"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "balance",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzUzNDQzNTYxfQ.nZYwl-XPDJz1kYnD3z4QmtqUuZHYLLeBCCRlRbYpmrg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseURL}}/balance",
+          "host": ["{{baseURL}}"],
+          "path": ["balance"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "topup",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzUzNDQzNTYxfQ.nZYwl-XPDJz1kYnD3z4QmtqUuZHYLLeBCCRlRbYpmrg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"top_up_amount\" : 25000\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/topup",
+          "host": ["{{baseURL}}"],
+          "path": ["topup"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "transaction",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzUzNDQzNTYxfQ.nZYwl-XPDJz1kYnD3z4QmtqUuZHYLLeBCCRlRbYpmrg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"service_code\": \"PLN\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/transaction",
+          "host": ["{{baseURL}}"],
+          "path": ["transaction"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "transaction history",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"service_code\": \"PLN\"\r\n}"
+        },
+        "url": {
+          "raw": "{{baseURL}}/transaction/history?offset=0&limit=3",
+          "host": ["{{baseURL}}"],
+          "path": ["transaction", "history"],
+          "query": [
+            {
+              "key": "offset",
+              "value": "0"
+            },
+            {
+              "key": "limit",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": "https://nutech-rest-api-assignment-production.up.railway.app",
+      "type": "default"
+    }
+  ]
+}
