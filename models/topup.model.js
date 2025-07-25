@@ -13,7 +13,7 @@ class TopupModel {
       }),
     });
 
-    const { error } = schema.validate({ amount, userId });
+    const { error } = schema.validate({ amount });
 
     if (error) {
       const validationError = {
@@ -26,13 +26,13 @@ class TopupModel {
     await db.query("BEGIN");
 
     const topupQuery = `
-        INSERT INTO
-          "Topups" (top_up_amount, user_id, transaction_type, created_on)
-        VALUES 
-          ($1, $2, 'TOPUP', NOW())
-        RETURNING 
-          top_up_amount
-      `;
+    INSERT INTO
+      "Topups" (top_up_amount, user_id, transaction_type, created_on)
+    VALUES 
+      ($1, $2, 'TOPUP', NOW())
+    RETURNING 
+      top_up_amount
+    `;
     const topupValues = [amount, userId];
     const topupResult = await db.query(topupQuery, topupValues);
 
